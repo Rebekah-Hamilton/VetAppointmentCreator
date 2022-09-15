@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogDescriptionApi", "DogDescriptionApi\DogDescriptionApi.csproj", "{AC14BBF8-EC65-429D-BE7A-51264A2BC3A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogAPIUnitTests", "DogAPIUnitTests\DogAPIUnitTests.csproj", "{AD6F9905-9931-421F-BEE2-BB5F5C54AA02}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC14BBF8-EC65-429D-BE7A-51264A2BC3A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC14BBF8-EC65-429D-BE7A-51264A2BC3A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC14BBF8-EC65-429D-BE7A-51264A2BC3A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC14BBF8-EC65-429D-BE7A-51264A2BC3A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD6F9905-9931-421F-BEE2-BB5F5C54AA02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD6F9905-9931-421F-BEE2-BB5F5C54AA02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD6F9905-9931-421F-BEE2-BB5F5C54AA02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD6F9905-9931-421F-BEE2-BB5F5C54AA02}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5697DAA-E1CC-456A-A8EE-82FE24F131BE}
+	EndGlobalSection
+EndGlobal
