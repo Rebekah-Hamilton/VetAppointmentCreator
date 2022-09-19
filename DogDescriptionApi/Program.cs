@@ -1,4 +1,5 @@
 using DogDescriptionApi.Models;
+using DogDescriptionApi.Processors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddSwaggerGen(c => {
     c.CustomSchemaIds(type => type.FullName);
 });
 builder.Services.AddTransient<DogBreeds>();
+builder.Services.AddTransient<ProcessModel>();
+builder.Services.AddTransient<AppointmentRequest>();
 
 var app = builder.Build();
 
