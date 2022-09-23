@@ -28,6 +28,8 @@ builder.Services.AddSwaggerGen(c => {
 builder.Services.AddTransient<DogBreeds>();
 builder.Services.AddTransient<ProcessModel>();
 builder.Services.AddTransient<AppointmentRequest>();
+builder.Services.AddTransient<RequestHelper>();
+builder.Services.AddTransient<VisitReasons>();
 
 var app = builder.Build();
 

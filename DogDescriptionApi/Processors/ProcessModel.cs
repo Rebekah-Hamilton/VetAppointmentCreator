@@ -30,7 +30,7 @@ namespace DogDescriptionApi.Processors
 
         public bool dogIsInDataBase(string dogBreed)
         {
-             if (Enum.TryParse(typeof(DogBreeds), dogBreed, true, out var dogBreeds))
+             if (Enum.TryParse(typeof(Breeds), dogBreed, true, out var dogBreeds))
             {
                 return true;
             }

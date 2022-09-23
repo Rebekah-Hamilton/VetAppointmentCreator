@@ -13,11 +13,18 @@ namespace DogDescriptionApi.Controllers
     {
         public readonly DogBreeds _dogBreeds;
         public readonly ProcessModel _processModel;
+        public readonly VisitReasons _visitReasons;
+        public readonly RequestHelper _requestHelper;
 
-        public DogAppointmentController (DogBreeds dogBreeds, ProcessModel processModel)
+        public DogAppointmentController (DogBreeds dogBreeds, 
+            ProcessModel processModel,
+            VisitReasons visitReasons,
+            RequestHelper requestHelper)
         {
             _dogBreeds = dogBreeds;
             _processModel = processModel;
+            _visitReasons = visitReasons;
+            _requestHelper = requestHelper;
         }
 
         [HttpGet("GetDogBreeds")]
@@ -43,10 +50,20 @@ namespace DogDescriptionApi.Controllers
         [SwaggerResponse(200, "Succesful Operation", typeof(DogAppointmentController))]
         [SwaggerResponse(400, "Bad Request - There was an error in your request", typeof (DogAppointmentController))]
         [SwaggerResponse(500, "Server Error - An error occurred on the server Please try your request again.", typeof(DogAppointmentController))]
-        public string CreateDogAppointment([Required] DogBreeds breed, string PetName, string OwnerFullName, string VisitReason)
+        public string CreateDogAppointment([Required] string dogBreed, string PetName, string OwnerFullName, string VisitReason)
         {
-            //var response = _processModel.Validate(dogAppointmentRequest);
+            var request = _requestHelper.CreateAppointmentRequest(dogBreed, PetName, OwnerFullName, VisitReason);
+            var response = _processModel.Validate(request);
             return "HORP";
+        }
+
+        [HttpGet("GetVisitReasons")]
+        [SwaggerResponse(200, "Succesful Operation", typeof(DogAppointmentController))]
+        [SwaggerResponse(400, "Bad Request - There was an error in your request", typeof(DogAppointmentController))]
+        [SwaggerResponse(500, "Server Error - An error occurred on the server Please try your request again.", typeof(DogAppointmentController))]
+        public List<string> GetVisitReason()
+        {
+            return _visitReasons.GetVisitReasons();
         }
 
     }
