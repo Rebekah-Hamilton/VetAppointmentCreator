@@ -19,23 +19,12 @@ namespace DogDescriptionApi.Processors
             {
                 return "the request is invalid";
             }
-            var isBreedAllowed = dogIsInDataBase(request.DogBreed.ToString());
-            if (!isBreedAllowed)
+            if (request.VisitReason == null || request.DogBreed == null)
             {
-                return "the requested breed cannot be scheduled currently";
+                return "the requested breed or visitReason cannot be scheduled currently";
             }
 
             return request.ToString();
-        }
-
-        public bool dogIsInDataBase(string dogBreed)
-        {
-             if (Enum.TryParse(typeof(Breeds), dogBreed, true, out var dogBreeds))
-            {
-                return true;
-            }
-            return false;
-            
         }
     }
 }

@@ -54,7 +54,7 @@ namespace DogDescriptionApi.Controllers
         {
             var request = _requestHelper.CreateAppointmentRequest(dogBreed, PetName, OwnerFullName, VisitReason);
             var response = _processModel.Validate(request);
-            return "HORP";
+            return response;
         }
 
         [HttpGet("GetVisitReasons")]
