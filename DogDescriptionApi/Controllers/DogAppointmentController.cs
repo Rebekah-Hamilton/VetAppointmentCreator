@@ -43,10 +43,10 @@ namespace DogDescriptionApi.Controllers
         [SwaggerResponse(200, "Succesful Operation", typeof(DogAppointmentController))]
         [SwaggerResponse(400, "Bad Request - There was an error in your request", typeof (DogAppointmentController))]
         [SwaggerResponse(500, "Server Error - An error occurred on the server Please try your request again.", typeof(DogAppointmentController))]
-        public string CreateDogAppointment([Required] AppointmentRequest dogAppointmentRequest)
+        public string CreateDogAppointment([Required] DogBreeds breed, string PetName, string OwnerFullName, string VisitReason)
         {
-            var response = _processModel.Validate(dogAppointmentRequest);
-            return response;
+            //var response = _processModel.Validate(dogAppointmentRequest);
+            return "HORP";
         }
 
     }

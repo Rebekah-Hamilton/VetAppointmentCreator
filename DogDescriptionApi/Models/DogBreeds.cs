@@ -1,4 +1,8 @@
-﻿namespace DogDescriptionApi.Models
+﻿
+
+using Newtonsoft.Json;
+
+namespace DogDescriptionApi.Models
 {
     public class DogBreeds
     {
