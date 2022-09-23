@@ -12,19 +12,24 @@ namespace DogDescriptionApi.Processors
 
         }
 
-        public string Validate(AppointmentRequest request)
+        //HttpActionResult change this
+        public HttpResponseMessage Validate(AppointmentRequest request)
         {
 
             if (request == null)
             {
-                return "the request is invalid";
+                var response = new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
+                response.Content = new StringContent("the request is invalid");
+                return response;
             }
             if (request.VisitReason == null || request.DogBreed == null)
             {
-                return "the requested breed or visitReason cannot be scheduled currently";
+                var response =  new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
+                response.Content = new StringContent("the requested breed or visitReason cannot be scheduled currently");
+                return response;
             }
 
-            return request.ToString();
+            return new HttpResponseMessage(System.Net.HttpStatusCode.Accepted);
         }
     }
 }

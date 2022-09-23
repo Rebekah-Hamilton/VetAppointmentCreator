@@ -16,12 +16,12 @@ namespace DogDescriptionApi.Models
         [DataMember(Name = "dogBreed")]
         [EnumDataType(typeof(DogBreeds))]
         [Required]
-        public virtual Breeds DogBreed { get; set; }
+        public virtual Breeds? DogBreed { get; set; }
 
         [DataMember(Name = "visitReason")]
         [EnumDataType(typeof(VisitReason))]
         [Required]
-        public virtual VisitReason VisitReason { get; set; }
+        public virtual VisitReason? VisitReason { get; set; }
 
         [DataMember(Name = "appointmentDate")]
         [Required]
