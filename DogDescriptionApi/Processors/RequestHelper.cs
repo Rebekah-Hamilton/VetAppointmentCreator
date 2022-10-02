@@ -60,7 +60,6 @@ namespace DogDescriptionApi.Processors
             return false;
 
         }
-        //does this push correctly after GHE update
         public bool VisitIsValid(string visitReason)
         {
             if (Enum.TryParse(typeof(VisitReason), visitReason, true, out var reason))
