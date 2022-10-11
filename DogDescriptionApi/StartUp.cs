@@ -3,11 +3,12 @@ using DogDescriptionApi.Processors;
 using System.Text.Json.Serialization;
 using System.Web.Http;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-//builder.Services.AddControllers();
+builder.Services.AddControllers();
 builder.Services.AddControllersWithViews()
                 .AddJsonOptions(options =>
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
@@ -26,10 +27,11 @@ builder.Services.AddSwaggerGen(c => {
 //         c.CustomAsset("index", yourAssembly, "YourWebApiProject.SwaggerExtensions.index.html");
 //     });
 builder.Services.AddTransient<DogBreeds>();
-builder.Services.AddTransient<ProcessModel>();
+builder.Services.AddTransient<AppointmentProcessor>();
 builder.Services.AddTransient<AppointmentRequest>();
 builder.Services.AddTransient<RequestHelper>();
 builder.Services.AddTransient<VisitReasons>();
+builder.Services.AddTransient<ProcessorRequest>();
 
 var app = builder.Build();
 
@@ -44,6 +46,13 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+
 app.MapControllers();
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=DogAppointmentController}/{action=Index}/{id}");
+//app.MapControllerRoute(
+//    name: "ApiController",
+//    pattern: "{controller=ApiController}/{action=Index}/{id}");
 
 app.Run();

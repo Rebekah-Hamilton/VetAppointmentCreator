@@ -4,30 +4,35 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.Swagger.Annotations;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Http;
+using System.Web.Http.Controllers;
+using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
+using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
+using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace DogDescriptionApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class DogAppointmentController : ControllerBase
     {
         public readonly DogBreeds _dogBreeds;
-        public readonly ProcessModel _processModel;
+        public readonly AppointmentProcessor _apptProcessor;
         public readonly VisitReasons _visitReasons;
         public readonly RequestHelper _requestHelper;
 
         public DogAppointmentController (DogBreeds dogBreeds, 
-            ProcessModel processModel,
+            AppointmentProcessor apptProcessor,
             VisitReasons visitReasons,
             RequestHelper requestHelper)
         {
             _dogBreeds = dogBreeds;
-            _processModel = processModel;
+            _apptProcessor = apptProcessor;
             _visitReasons = visitReasons;
             _requestHelper = requestHelper;
         }
 
-        [HttpGet("GetDogBreeds")]
+        [HttpGet]
+        [Route("GetBreeds")]
         [SwaggerResponse(200, "Succesful Operation", typeof(DogAppointmentController))]
         [SwaggerResponse(400, "Bad Request - There was an error in your request", typeof(DogAppointmentController))]
         [SwaggerResponse(500, "Server Error - An error occurred on the server Please try your request again.", typeof(DogAppointmentController))]
@@ -36,7 +41,8 @@ namespace DogDescriptionApi.Controllers
             return _dogBreeds.GetDogBreeds();
         }
 
-        [HttpGet("GetDogAppointments")]
+        [HttpGet]
+        [Route("GetDogAppointments")]
         [SwaggerResponse(200, "Succesful Operation", typeof(DogAppointmentController))]
         [SwaggerResponse(400, "Bad Request - There was an error in your request", typeof(DogAppointmentController))]
         [SwaggerResponse(500, "Server Error - An error occurred on the server Please try your request again.", typeof(DogAppointmentController))]
@@ -46,18 +52,30 @@ namespace DogDescriptionApi.Controllers
             return appointmentList;
         }
 
-        [HttpPost("PostDogAppointment")]
+        [HttpPost]
+        [Route("CreateAppointment")]
         [SwaggerResponse(200, "Succesful Operation", typeof(DogAppointmentController))]
-        [SwaggerResponse(400, "Bad Request - There was an error in your request", typeof (DogAppointmentController))]
+        [SwaggerResponse(400, "Bad Request - There was an error in your request", typeof(DogAppointmentController))]
         [SwaggerResponse(500, "Server Error - An error occurred on the server Please try your request again.", typeof(DogAppointmentController))]
-        public HttpResponseMessage CreateDogAppointment([Required] string dogBreed, string PetName, string OwnerFullName, string VisitReason)
+        public async Task<IHttpActionResult> CreateDogAppointment([Required] string dogBreed, string PetName, string OwnerFullName, string VisitReason)
         {
             var request = _requestHelper.CreateAppointmentRequest(dogBreed, PetName, OwnerFullName, VisitReason);
-            var response = _processModel.Validate(request);
+            var appointmentProcessorRequest = new ProcessorRequest
+            {
+                Controller = this,
+                Request = request,
+                RequestMessage = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Post,
+                    Content = new StringContent("CreateAppointment")
+                }
+            };
+            var response = await _apptProcessor.Execute(appointmentProcessorRequest);
             return response;
         }
 
-        [HttpGet("GetVisitReasons")]
+        [HttpGet]
+        [Route("GetVisitReasons")]
         [SwaggerResponse(200, "Succesful Operation", typeof(DogAppointmentController))]
         [SwaggerResponse(400, "Bad Request - There was an error in your request", typeof(DogAppointmentController))]
         [SwaggerResponse(500, "Server Error - An error occurred on the server Please try your request again.", typeof(DogAppointmentController))]
@@ -65,6 +83,7 @@ namespace DogDescriptionApi.Controllers
         {
             return _visitReasons.GetVisitReasons();
         }
+
 
     }
 }
